@@ -1,4 +1,4 @@
-package commbase
+package microbase
 
 import (
 	"database/sql"
