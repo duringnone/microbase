@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
+	"text/template"
 	"time"
 )
 
@@ -33,6 +34,25 @@ func CreateUniqueFlowNum(prefix ...string) string {
 		pre = prefix[0]
 	}
 	return pre + "-" + php.Date("YmdHis", time.Now().Unix()) + "-" + fmt.Sprintf("%v", time.Now().UnixNano())
+}
+
+// 过滤特殊字符
+// @param key 字符串
+// @param sType 类型 [可选]
+// @return string 过滤后字符串
+func Escape(key string, sType ...string) string {
+	if key == "" {
+		return ""
+	}
+	specialStrList := []string{";", "(", ")", "\r", "\n", "*"} // 需要过滤的特殊字符
+	if len(sType) > 0 {
+		return ToString(ToInt(key))
+	} else {
+		for _, specStr := range specialStrList {
+			key = strings.Replace(key, specStr, "", -1)
+		}
+		return template.HTMLEscapeString(template.JSEscapeString(key))
+	}
 }
 
 // ***************************************************** //
