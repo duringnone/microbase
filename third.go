@@ -11,7 +11,7 @@ import (
  */
 type MailConf struct {
 	Username string // 发件人邮箱
-	Pwd      string // 发件人密码
+	Pwd      string // 发件人 授权码,而非密码
 	Smtp     string // 协议
 	Port     int    // (邮件服务器)端口
 }
